@@ -1,9 +1,67 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace aspCoreEmpty.Models
 {
+    internal interface ITasksRepository : IDisposable
+    {
+        IEnumerable<Categories> GetCategories();
+
+        void InsertCategory(Categories category);
+
+        void Save();
+    }
+    public class TasksRepository : ITasksRepository
+    {
+        private readonly tasksContext _context;
+
+        public TasksRepository(tasksContext context)
+        {
+            _context = context;
+        }
+
+        
+
+        
+
+        public void Save()
+        {
+            _context.SaveChanges();
+        }
+
+        private bool _disposed;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    _context.Dispose();
+                }
+            }
+            _disposed = true;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        public IEnumerable<Categories> GetCategories()
+        {
+            return _context.Categories.ToList();
+        }
+
+        public void InsertCategory(Categories category)
+        {
+            _context.Categories.Add(category);
+        }
+    }
     public partial class tasksContext : DbContext
     {
         public tasksContext()
