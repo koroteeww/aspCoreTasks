@@ -25,11 +25,9 @@ namespace aspCoreEmpty.Controllers
             var NewList = new List<TypesExtended>();
             foreach (var type in ListTypes)
             {
-                var NameCategory = _context.Categories.Where(cat => cat.Idcategories == type.Idcategory).First().Name;
-                var nitem = new TypesExtended();
-                nitem.Idcategory = type.Idcategory;
-                nitem.Idtypes = type.Idtypes;
-                nitem.Name = type.Name;
+                var NameCategory = _context.Categories.Where(cat => cat.Idcategories == type.Idcategory).FirstOrDefault().Name;
+                var nitem = new TypesExtended(type);
+                
                 nitem.NameCategory = NameCategory;
                 NewList.Add(nitem);
             }
@@ -51,13 +49,26 @@ namespace aspCoreEmpty.Controllers
                 return NotFound();
             }
 
-            return View(types);
+            var NameCategory = _context.Categories.Where(cat => cat.Idcategories == types.Idcategory).First().Name;
+            var typesExt = new TypesExtended(types);
+
+            typesExt.NameCategory = NameCategory;
+            return View(typesExt);
         }
 
         // GET: Types/Create
         public IActionResult Create()
         {
-            return View();
+            var typeExt = new TypesExtended();
+            //заполняем выпадающий список для создания
+            var allCategories = _context.Categories.ToList();
+            foreach (var item in allCategories)
+            {
+                //добавляем категории в список
+
+                typeExt.NameCategoriesAll.Add(item.Name);
+            }
+            return View(typeExt);
         }
 
         // POST: Types/Create
@@ -65,14 +76,40 @@ namespace aspCoreEmpty.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Idtypes,Name,Idcategory")] Types types)
+        public async Task<IActionResult> Create(TypesExtended types)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(types);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
+            
+                //проверим ИД типа
+                if (types.Idtypes == 0)
+                {
+                    //generate id
+                    int maxid = 0;
+                    
+                    foreach (var cat in _context.Types)
+                    {
+                        if (cat.Idtypes > maxid)
+                        {
+                            maxid = cat.Idtypes;
+                        }
+                    }
+                    types.Idtypes = maxid + 1;
+                }
+                var typeOrd = new Types(types);
+                //получаем имя выбранной категорию из модели TypesExtended
+                var SelectedCategoryName = types.NameCategoriesAll[0];
+                //получаем саму категорию из базы по имени
+                var Category = _context.Categories.Where(c => c.Name == SelectedCategoryName).FirstOrDefault();
+                if (Category != null)
+                {
+                    //сохраняем ИД категории в типе
+                    typeOrd.Idcategory = Category.Idcategories;
+                    //Обновляем БД
+                    _context.Add(typeOrd);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                
+            
             return View(types);
         }
 
@@ -89,7 +126,21 @@ namespace aspCoreEmpty.Controllers
             {
                 return NotFound();
             }
-            return View(types);
+            
+            //получаем имя категории которая задана в типе по ИД
+            var NameCategory = _context.Categories.Where(cat => cat.Idcategories == types.Idcategory).First().Name;
+            var typesExt = new TypesExtended(types);
+            //добавляем имя категории в выпадающий список
+            typesExt.NameCategoriesAll.Add(NameCategory);
+            var allCategories = _context.Categories.ToList();
+            foreach (var item in allCategories)
+            {
+                //добавляем остальные категории в список
+                if (item.Idcategories!=types.Idcategory)
+                    typesExt.NameCategoriesAll.Add(item.Name);
+            }
+            typesExt.NameCategory = NameCategory;
+            return View(typesExt);
         }
 
         // POST: Types/Edit/5
@@ -97,7 +148,7 @@ namespace aspCoreEmpty.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Idtypes,Name,Idcategory")] Types types)
+        public async Task<IActionResult> Edit(int id, TypesExtended types)
         {
             if (id != types.Idtypes)
             {
@@ -108,8 +159,19 @@ namespace aspCoreEmpty.Controllers
             {
                 try
                 {
-                    _context.Update(types);
-                    await _context.SaveChangesAsync();
+                    var typeOrd = new Types(types);
+                    //получаем имя выбранной категорию из модели TypesExtended
+                    var SelectedCategoryName = types.NameCategoriesAll[0];
+                    //получаем саму категорию из базы по имени
+                    var Category = _context.Categories.Where(c => c.Name == SelectedCategoryName).FirstOrDefault();
+                    if (Category != null)
+                    {
+                        //сохраняем ИД категории в типе
+                        typeOrd.Idcategory = Category.Idcategories;
+                        //Обновляем БД
+                        _context.Update(typeOrd);
+                        await _context.SaveChangesAsync();
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {

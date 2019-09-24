@@ -1,0 +1,103 @@
+﻿@model IEnumerable<aspCoreEmpty.Models.Tasks>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nomer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Datasozdaniya)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Datazakritiya)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pomeschenie)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Idtype)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Idstatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ispolnitel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sozdatel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sozdatelemail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Chtosdelat)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Foto)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nomer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Datasozdaniya)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Datazakritiya)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pomeschenie)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Idtype)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Idstatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ispolnitel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sozdatel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sozdatelemail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Chtosdelat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Foto)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</body>
+</html>

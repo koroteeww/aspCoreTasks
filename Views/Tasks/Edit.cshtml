@@ -1,0 +1,90 @@
+﻿@model aspCoreEmpty.Models.Tasks
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+</head>
+<body>
+
+<h4>Tasks</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Nomer" class="control-label"></label>
+                <input asp-for="Nomer" class="form-control" />
+                <span asp-validation-for="Nomer" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Datasozdaniya" class="control-label"></label>
+                <input asp-for="Datasozdaniya" class="form-control" />
+                <span asp-validation-for="Datasozdaniya" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Datazakritiya" class="control-label"></label>
+                <input asp-for="Datazakritiya" class="form-control" />
+                <span asp-validation-for="Datazakritiya" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pomeschenie" class="control-label"></label>
+                <input asp-for="Pomeschenie" class="form-control" />
+                <span asp-validation-for="Pomeschenie" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Idtype" class="control-label"></label>
+                <input asp-for="Idtype" class="form-control" />
+                <span asp-validation-for="Idtype" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Idstatus" class="control-label"></label>
+                <input asp-for="Idstatus" class="form-control" />
+                <span asp-validation-for="Idstatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ispolnitel" class="control-label"></label>
+                <input asp-for="Ispolnitel" class="form-control" />
+                <span asp-validation-for="Ispolnitel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Sozdatel" class="control-label"></label>
+                <input asp-for="Sozdatel" class="form-control" />
+                <span asp-validation-for="Sozdatel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Sozdatelemail" class="control-label"></label>
+                <input asp-for="Sozdatelemail" class="form-control" />
+                <span asp-validation-for="Sozdatelemail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Chtosdelat" class="control-label"></label>
+                <input asp-for="Chtosdelat" class="form-control" />
+                <span asp-validation-for="Chtosdelat" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Foto" class="control-label"></label>
+                <input asp-for="Foto" class="form-control" />
+                <span asp-validation-for="Foto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+</body>
+</html>
