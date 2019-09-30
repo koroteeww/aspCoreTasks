@@ -1,7 +1,7 @@
-﻿@model aspCoreEmpty.Models.Tasks
+﻿@model aspCoreEmpty.Models.TasksExtended
 
 @{
-    Layout = null;
+    Layout = "_Layout";
 }
 
 <!DOCTYPE html>
@@ -41,14 +41,12 @@
                 <span asp-validation-for="Pomeschenie" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Idtype" class="control-label"></label>
-                <input asp-for="Idtype" class="form-control" />
-                <span asp-validation-for="Idtype" class="text-danger"></span>
+                <label asp-for="NameType" class="control-label"></label>
+                @Html.DropDownListFor(x => x.NameTypesAll, new SelectList(Model.NameTypesAll))
             </div>
             <div class="form-group">
-                <label asp-for="Idstatus" class="control-label"></label>
-                <input asp-for="Idstatus" class="form-control" />
-                <span asp-validation-for="Idstatus" class="text-danger"></span>
+                <label asp-for="NameStatus" class="control-label"></label>
+                @Html.DropDownListFor(x => x.NameStatusesAll, new SelectList(Model.NameStatusesAll))
             </div>
             <div class="form-group">
                 <label asp-for="Ispolnitel" class="control-label"></label>
@@ -72,19 +70,23 @@
             </div>
             <div class="form-group">
                 <label asp-for="Foto" class="control-label"></label>
-                <input asp-for="Foto" class="form-control" />
+                <input type="file" asp-for="Foto" class="form-control" />
                 <span asp-validation-for="Foto" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
+
+
+
+
         </form>
     </div>
-</div>
+    
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
 
 </body>
 </html>

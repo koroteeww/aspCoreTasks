@@ -1,7 +1,7 @@
-﻿@model aspCoreEmpty.Models.Tasks
+﻿@model aspCoreEmpty.Models.TasksExtended
 
 @{
-    Layout = null;
+    Layout = "_Layout";
 }
 
 <!DOCTYPE html>
@@ -19,7 +19,7 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            <div class="form-group" hidden>
                 <label asp-for="Id" class="control-label"></label>
                 <input asp-for="Id" class="form-control" />
                 <span asp-validation-for="Id" class="text-danger"></span>
@@ -45,14 +45,12 @@
                 <span asp-validation-for="Pomeschenie" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Idtype" class="control-label"></label>
-                <input asp-for="Idtype" class="form-control" />
-                <span asp-validation-for="Idtype" class="text-danger"></span>
+                <label asp-for="NameType" class="control-label"></label>
+                @Html.DropDownListFor(x => x.NameTypesAll, new SelectList(Model.NameTypesAll))
             </div>
             <div class="form-group">
-                <label asp-for="Idstatus" class="control-label"></label>
-                <input asp-for="Idstatus" class="form-control" />
-                <span asp-validation-for="Idstatus" class="text-danger"></span>
+                <label asp-for="NameStatus" class="control-label"></label>
+                @Html.DropDownListFor(x => x.NameStatusesAll, new SelectList(Model.NameStatusesAll))
             </div>
             <div class="form-group">
                 <label asp-for="Ispolnitel" class="control-label"></label>
@@ -76,7 +74,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Foto" class="control-label"></label>
-                <input asp-for="Foto" class="form-control" />
+                <input type="file" asp-for="Foto" class="form-control" />
                 <span asp-validation-for="Foto" class="text-danger"></span>
             </div>
             <div class="form-group">

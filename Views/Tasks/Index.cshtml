@@ -1,7 +1,7 @@
-﻿@model IEnumerable<aspCoreEmpty.Models.Tasks>
+﻿@model IEnumerable<aspCoreEmpty.Models.TasksExtended>
 
 @{
-    Layout = null;
+    Layout = "_Layout";
 }
 
 <!DOCTYPE html>
@@ -31,10 +31,10 @@
                 @Html.DisplayNameFor(model => model.Pomeschenie)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Idtype)
+                @Html.DisplayNameFor(model => model.NameType)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Idstatus)
+                @Html.DisplayNameFor(model => model.NameStatus)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Ispolnitel)
@@ -70,10 +70,10 @@
                 @Html.DisplayFor(modelItem => item.Pomeschenie)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Idtype)
+                @Html.DisplayFor(modelItem => item.NameType)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Idstatus)
+                @Html.DisplayFor(modelItem => item.NameStatus)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Ispolnitel)

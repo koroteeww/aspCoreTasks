@@ -1,7 +1,7 @@
-﻿@model aspCoreEmpty.Models.Tasks
+﻿@model aspCoreEmpty.Models.TasksExtended
 
 @{
-    Layout = null;
+    Layout = "_Layout";
 }
 
 <!DOCTYPE html>
@@ -42,16 +42,16 @@
             @Html.DisplayFor(model => model.Pomeschenie)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Idtype)
+            @Html.DisplayNameFor(model => model.NameType)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Idtype)
+            @Html.DisplayFor(model => model.NameType)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Idstatus)
+            @Html.DisplayNameFor(model => model.NameStatus)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Idstatus)
+            @Html.DisplayFor(model => model.NameStatus)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Ispolnitel)
